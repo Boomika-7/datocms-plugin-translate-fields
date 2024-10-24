@@ -4,7 +4,12 @@ export default async function translate(
   string: string,
   options: TranslationOptions,
 ): Promise<string> {
-  const prompt = `Translate the following from the locale '${options.fromLocale}' to the locale '${options.toLocale}': ${string}`
+
+  const targetLocale = ['en-EU', 'en-uk', 'APAC'].includes(options.toLocale)
+    ? 'en-GB'
+    : options.toLocale;
+
+  const prompt = `Translate the following from the locale '${options.fromLocale}' to the locale '${targetLocale}': ${string}`
 
   const requestOptions = {
     method: 'POST',
